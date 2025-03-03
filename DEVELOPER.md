@@ -56,11 +56,11 @@ gh workflow run <workflow>.yml
 On the first run, the CLI will prompt to choose whether the run should be triggered on your fork of the repository or on the upstream version. This decision is stored for subsequent runs &mdash; to override it later, use the `--repo` (short `-R`) option to specify the repository. For instance, if you initially selected your fork but would like to trigger on the main repository:
 
 ```shell
-gh workflow run <workflow>.yml -R MODFLOW-USGS/executables
+gh workflow run <workflow>.yml -R MODFLOW-ORG/executables
 ```
 
-**Note:** by default, workflow runs are associated with the repository's default branch. If the repo's default branch is `develop` (as is currently the case for `MODFLOW-USGS/executables`, you will need to use the `--ref` (short `-r`) option to specify the `master` branch when triggering from the CLI. For instance:
+**Note:** by default, workflow runs are associated with the repository's default branch. If the repo's default branch is `develop` (as is currently the case for `MODFLOW-ORG/executables`, you will need to use the `--ref` (short `-r`) option to specify the `master` branch when triggering from the CLI. For instance:
 
 ```shell
-gh workflow run <workflow>.yml -R MODFLOW-USGS/executables -r master
+gh workflow run <workflow>.yml -R MODFLOW-ORG/executables -r master
 ```

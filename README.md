@@ -1,12 +1,12 @@
 # MODFLOW EXECUTABLES
 
-The purpose of this repository is to distribute binaries for MODFLOW and related programs. Distributions are provided for Windows, Mac, and Linux operating systems. Programs are compiled using [pymake](https://github.com/modflowpy/pymake) and Intel OneAPI compilers. The release also includes a json file [`code.json`](https://github.com/MODFLOW-USGS/executables/releases/latest/download/code.json) that includes, for each program, the current version number, the URL that can be used to download the source files, and the date sources were last updated. A markdown version of this file, `code.md` is also included in the distribution.
+The purpose of this repository is to distribute binaries for MODFLOW and related programs. Distributions are provided for Windows, Mac, and Linux operating systems. Programs are compiled using [pymake](https://github.com/modflowpy/pymake) and Intel OneAPI compilers. The release also includes a json file [`code.json`](https://github.com/MODFLOW-ORG/executables/releases/latest/download/code.json) that includes, for each program, the current version number, the URL that can be used to download the source files, and the date sources were last updated. A markdown version of this file, `code.md` is also included in the distribution.
 
-Executables for these different operating systems can be found under the [release](https://github.com/MODFLOW-USGS/executables/releases) tab above and are named:
+Executables for these different operating systems can be found under the [release](https://github.com/MODFLOW-ORG/executables/releases) tab above and are named:
 
-* [win64.zip](https://github.com/MODFLOW-USGS/executables/releases/latest/download/win64.zip)
-* [mac.zip](https://github.com/MODFLOW-USGS/executables/releases/latest/download/mac.zip)
-* [linux.zip](https://github.com/MODFLOW-USGS/executables/releases/latest/download/linux.zip)
+* [win64.zip](https://github.com/MODFLOW-ORG/executables/releases/latest/download/win64.zip)
+* [mac.zip](https://github.com/MODFLOW-ORG/executables/releases/latest/download/mac.zip)
+* [linux.zip](https://github.com/MODFLOW-ORG/executables/releases/latest/download/linux.zip)
 
 The programs, version numbers, and the date stamp on the downloaded file used to create the executables for the present release are
 
