@@ -14,10 +14,10 @@ The programs, version numbers, and the date stamp on the downloaded file used to
 | ------- | ------- | ---- |
 | crt | 1.3.1 | 04/11/2017 |
 | gridgen | 1.0.02 | 10/24/2018 |
-| libmf6 | 6.6.1 | 02/10/2025 |
+| libmf6 | 6.6.2 | 05/12/2025 |
 | mf2000 | 1.19.01 | 03/30/2010 |
 | mf2005 | 1.12.00 | 12/07/2021 |
-| mf6 | 6.6.1 | 02/10/2025 |
+| mf6 | 6.6.2 | 05/12/2025 |
 | mflgr | 2.0.0 | 09/20/2013 |
 | mfnwt | 1.3.0 | 09/07/2022 |
 | mfusg | 1.5 | 02/27/2019 |
@@ -30,6 +30,6 @@ The programs, version numbers, and the date stamp on the downloaded file used to
 | swtv4 | 4.00.05 | 10/24/2018 |
 | triangle | 1.6 | 07/05/2023 |
 | vs2dt | 3.3 | 04/02/2018 |
-| zbud6 | 6.6.1 | 02/10/2025 |
+| zbud6 | 6.6.2 | 05/12/2025 |
 | zonbud3 | 3.01 | 10/25/2018 |
 | zonbudusg | 1.5 | 02/27/2019 |
