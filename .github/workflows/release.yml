@@ -24,8 +24,11 @@ jobs:
         shell: bash
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout modflow6
+        uses: actions/checkout@v5
+        with:
+          repository: MODFLOW-ORG/modflow6
+          path: modflow6
 
       - name: Setup ${{ contains(fromJSON('["macos-14"]'), matrix.os) && 'gcc' || 'intel-classic' }} ${{ contains(fromJSON('["macos-14"]'), matrix.os) && env.GCC_V || env.INTEL_V }}
         uses: fortran-lang/setup-fortran@v1
@@ -65,21 +68,20 @@ jobs:
           echo "${{ github.repository }} version ${{ steps.tag.outputs.tag }}"
           echo "RELEASE_VERSION=${{ steps.tag.outputs.tag }}" >> $GITHUB_ENV
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.9.1
         with:
-          python-version: "3.10"
+          pixi-version: v0.41.4
+          manifest-path: modflow6/pixi.toml
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip list
+      - name: Custom pixi install
+        working-directory: modflow6
+        run: pixi run install
 
       - name: Get OS tag
         id: ostag
         run: |
-          ostag=$(python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
+          ostag=$(pixi run --manifest-path modflow6/pixi.toml python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
           echo "ostag=$ostag" >> $GITHUB_OUTPUT
 
       - name: Build programs
@@ -90,19 +92,21 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             mkdir $ostag
-            make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
-            make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             if [[ "${{ matrix.os }}" == "macos-14" ]]; then
-              make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
+              pixi run --manifest-path modflow6/pixi.toml make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
             fi
-            make-code-json --appdir $ostag --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
       - name: Show programs
+        working-directory: modflow6
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           ls $ostag
 
       - name: Check linked libs (ARM macOS)
+        working-directory: modflow6
         if: runner.os == 'macOS'
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
