@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-13, macos-14, windows-2019]
+        os: [ubuntu-22.04, macos-13, macos-14, windows-2022]
     defaults:
       run:
         shell: bash
@@ -90,7 +90,7 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             mkdir $ostag
-            make-program : --appdir $ostag --zip $ostag.zip --verbose
+            make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
             make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             if [[ "${{ matrix.os }}" == "macos-14" ]]; then
               make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'

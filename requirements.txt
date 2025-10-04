@@ -1,3 +1,3 @@
 wheel
-https://github.com/modflowpy/pymake/zipball/develop
-https://github.com/MODFLOW-ORG/modflow-devtools/zipball/develop
+https://github.com/modflowpy/pymake/archive/develop.zip
+https://github.com/MODFLOW-ORG/modflow-devtools/archive/develop.zip
