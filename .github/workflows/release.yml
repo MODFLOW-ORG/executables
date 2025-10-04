@@ -100,13 +100,11 @@ jobs:
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
       - name: Show programs
-        working-directory: modflow6
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           ls $ostag
 
       - name: Check linked libs (ARM macOS)
-        working-directory: modflow6
         if: runner.os == 'macOS'
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
