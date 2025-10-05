@@ -84,6 +84,12 @@ jobs:
           ostag=$(pixi run --manifest-path modflow6/pixi.toml python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
           echo "ostag=$ostag" >> $GITHUB_OUTPUT
 
+      # interactive debugging
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+
       - name: Build programs
         uses: nick-fields/retry@v3
         with:
