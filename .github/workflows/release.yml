@@ -87,8 +87,6 @@ jobs:
       # interactive debugging
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
 
       - name: Build programs
         uses: nick-fields/retry@v3
