@@ -87,7 +87,7 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             mkdir $ostag
-            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude gridgen --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             if [[ "${{ matrix.os }}" == "macos-14" ]]; then
               pixi run --manifest-path modflow6/pixi.toml make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'

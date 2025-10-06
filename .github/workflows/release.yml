@@ -85,8 +85,8 @@ jobs:
           echo "ostag=$ostag" >> $GITHUB_OUTPUT
 
       # interactive debugging
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Build programs
         uses: nick-fields/retry@v3
@@ -96,7 +96,7 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             mkdir $ostag
-            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude gridgen --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             if [[ "${{ matrix.os }}" == "macos-14" ]]; then
               pixi run --manifest-path modflow6/pixi.toml make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
@@ -200,8 +200,6 @@ jobs:
       # interactive debugging
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
-      #   with:
-      #     limit-access-to-actor: true
 
       - name: Update readme
         id: update-readme
