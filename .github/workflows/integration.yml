@@ -28,13 +28,15 @@ jobs:
           repository: MODFLOW-ORG/modflow6
           path: modflow6
 
-      - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@v0.9.1
         with:
-          environment-file: modflow6/environment.yml
-          cache-environment: true
-          cache-downloads: true
-          init-shell: bash
+          pixi-version: v0.41.4
+          manifest-path: modflow6/pixi.toml
+
+      - name: Custom pixi install
+        working-directory: modflow6
+        run: pixi run install
 
       - name: Setup ${{ contains(fromJSON('["macos-14"]'), matrix.os) && 'gcc' || 'intel-classic' }} ${{ contains(fromJSON('["macos-14"]'), matrix.os) && env.GCC_V || env.INTEL_V }}
         uses: fortran-lang/setup-fortran@v1
@@ -69,13 +71,12 @@ jobs:
           if [[ "${{ matrix.os }}" == "macos-14" ]]; then
             setupargs="$setupargs -Doptimization=1"
           fi
-          meson setup builddir $setupargs
-          meson install -C builddir
+          pixi run build builddir $setupargs
       
       - name: Get OS tag
         id: ostag
         run: |
-          ostag=$(python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
+          ostag=$(pixi run --manifest-path modflow6/pixi.toml python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
           echo "ostag=$ostag" >> $GITHUB_OUTPUT
 
       - name: Build programs
@@ -86,12 +87,12 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             mkdir $ostag
-            make-program : --appdir $ostag -ex gridgen --zip $ostag.zip --verbose
-            make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude gridgen --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             if [[ "${{ matrix.os }}" == "macos-14" ]]; then
-              make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
+              pixi run --manifest-path modflow6/pixi.toml make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
             fi
-            make-code-json --appdir $ostag --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
       - name: Move programs
         run: |
@@ -150,9 +151,9 @@ jobs:
             ./code.md
 
       - name: Update flopy
-        working-directory: modflow6/autotest
-        run: python update_flopy.py
+        working-directory: modflow6
+        run: pixi run update-flopy
 
       - name: Test modflow6
-        working-directory: modflow6/autotest
-        run: pytest -v -n auto -m "not developmode" --durations 0
+        working-directory: modflow6
+        run: pixi run autotest -m "not developmode"
