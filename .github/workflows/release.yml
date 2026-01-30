@@ -24,6 +24,9 @@ jobs:
         shell: bash
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
       - name: Checkout modflow6
         uses: actions/checkout@v5
         with:
@@ -88,6 +91,12 @@ jobs:
       # - name: Setup tmate session
       #   uses: mxschmitt/action-tmate@v3
 
+      - name: Fetch pre-built programs
+        run: |
+          ostag="${{ steps.ostag.outputs.ostag }}"
+          mkdir $ostag
+          python3 scripts/fetch_releases.py --manifest releases.json --ostag $ostag --outdir $ostag --zip $ostag.zip
+
       - name: Build programs
         uses: nick-fields/retry@v3
         with:
@@ -95,12 +104,9 @@ jobs:
           timeout_minutes: 40
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
-            mkdir $ostag
-            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude gridgen --zip $ostag.zip --verbose
+            fetched=$(python3 scripts/fetch_releases.py --manifest releases.json --list)
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
-            if [[ "${{ matrix.os }}" == "macos-14" ]]; then
-              pixi run --manifest-path modflow6/pixi.toml make-program mf6 --appdir $ostag --keep --zip $ostag.zip --verbose --fflags='-O1'
-            fi
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
       - name: Show programs
