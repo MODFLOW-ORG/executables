@@ -1,0 +1,82 @@
+[
+  {
+    "repo": "MODFLOW-ORG/modflow6",
+    "tag": "6.6.3",
+    "assets": {
+      "linux": "mf6.6.3_linux.zip",
+      "mac": "mf6.6.3_mac.zip",
+      "macarm": "mf6.6.3_macarm.zip",
+      "win64": "mf6.6.3_win64.zip"
+    },
+    "programs": {
+      "mf6": "mf6",
+      "zbud6": "zbud6",
+      "libmf6": "libmf6"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/triangle",
+    "tag": "v1.6",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "triangle": "triangle"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/gridgen",
+    "tag": "v1.0.02",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "gridgen": "gridgen"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/zonbud",
+    "tag": "v3.01",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "zonbud": "zonbud"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/zonbudusg",
+    "tag": "v1.01",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "zonbudusg": "zonbudusg"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/mfusgt",
+    "tag": "v2.6.0",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "mfusg_gsi": "mfusgt"
+    }
+  }
+]
