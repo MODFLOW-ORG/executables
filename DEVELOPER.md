@@ -54,7 +54,7 @@ These programs are downloaded as pre-built binaries via `releases.json`. Their r
 | mf6, zbud6, libmf6 | [MODFLOW-ORG/modflow6](https://github.com/MODFLOW-ORG/modflow6) | 6.6.3 | Assets named `mf6.6.3_{platform}.zip`, binaries nested in `bin/` subdirectory |
 | triangle | [MODFLOW-ORG/triangle](https://github.com/MODFLOW-ORG/triangle) | v1.6 | |
 | gridgen | [MODFLOW-ORG/gridgen](https://github.com/MODFLOW-ORG/gridgen) | v1.0.02 | |
-| zonbud3 | [MODFLOW-ORG/zonbud](https://github.com/MODFLOW-ORG/zonbud) | v3.01 | Archive contains `zonbud`, renamed to `zonbud3` |
+| zonbud | [MODFLOW-ORG/zonbud](https://github.com/MODFLOW-ORG/zonbud) | v3.01 | |
 | zonbudusg | [MODFLOW-ORG/zonbudusg](https://github.com/MODFLOW-ORG/zonbudusg) | v1.01 | |
 | mfusg_gsi | [MODFLOW-ORG/mfusgt](https://github.com/MODFLOW-ORG/mfusgt) | v2.6.0 | Archive contains `mfusgt`, renamed to `mfusg_gsi` |
 
@@ -94,7 +94,7 @@ During a release build, the workflow:
 2. Runs pymake to compile the remaining programs, excluding those already fetched.
 3. Combines everything into the platform zip alongside pymake-generated metadata.
 
-The fetch script handles platform-specific file extensions (`.exe`, `.dll`, `.dylib`, `.so`) and supports renaming programs when the archive filename differs from the distribution name (e.g., `zonbud` in the archive becomes `zonbud3` in the distribution).
+The fetch script handles platform-specific file extensions (`.exe`, `.dll`, `.dylib`, `.so`) and supports renaming programs when the archive filename differs from the distribution name (e.g., `mfusgt` in the archive becomes `mfusg_gsi` in the distribution).
 
 ### Adding a program
 
