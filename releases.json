@@ -77,7 +77,8 @@
       "win64": "win64.zip"
     },
     "programs": {
-      "mfnwt": "mfnwt"
+      "mfnwt": "mfnwt",
+      "mfnwtdbl": "mfnwtdbl"
     }
   },
   {
@@ -129,7 +130,8 @@
       "win64": "win64.zip"
     },
     "programs": {
-      "mflgr": "mflgr"
+      "mflgr": "mflgr",
+      "mflgrdbl": "mflgrdbl"
     }
   },
   {

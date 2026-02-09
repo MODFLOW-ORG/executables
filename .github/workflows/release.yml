@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-14, windows-2022]
+        os: [ubuntu-22.04, macos-14, macos-15-intel, windows-2022]
     defaults:
       run:
         shell: bash
@@ -33,29 +33,31 @@ jobs:
           repository: MODFLOW-ORG/modflow6
           path: modflow6
 
-      - name: Setup ${{ contains(fromJSON('["macos-14"]'), matrix.os) && 'gcc' || 'intel-classic' }} ${{ contains(fromJSON('["macos-14"]'), matrix.os) && env.GCC_V || env.INTEL_V }}
+      - name: Setup ${{ contains(fromJSON('["macOS"]'), runner.os) && 'gcc' || 'intel-classic' }} ${{ contains(fromJSON('["macOS"]'), runner.os) && env.GCC_V || env.INTEL_V }}
         uses: fortran-lang/setup-fortran@v1
         with:
-          compiler: ${{ contains(fromJSON('["macos-14"]'), matrix.os) && 'gcc' || 'intel-classic' }}
-          version: ${{ contains(fromJSON('["macos-14"]'), matrix.os) && env.GCC_V || env.INTEL_V }}
+          compiler: ${{ contains(fromJSON('["macOS"]'), runner.os) && 'gcc' || 'intel-classic' }}
+          version: ${{ contains(fromJSON('["macOS"]'), runner.os) && env.GCC_V || env.INTEL_V }}
 
       - name: Setup Xcode CLT (macOS)
         uses: maxim-lobanov/setup-xcode@v1
         if: runner.os == 'macOS'
         with:
-          xcode-version: ${{ contains(fromJSON('["macos-13"]'), matrix.os) && '14.3.1' || 'latest' }}
+          xcode-version: 'latest'
 
-      - name: Set LDFLAGS (ARM macOS)
-        if: matrix.os == 'macos-14'
+      - name: Set LDFLAGS (macOS)
+        if: runner.os == 'macOS'
         run: |
           ldflags="$LDFLAGS -Wl,-ld_classic"
           echo "LDFLAGS=$ldflags" >> $GITHUB_ENV
 
-      - name: Hide dylibs (ARM macOS)
-        if: matrix.os == 'macos-14'
+      - name: Hide dylibs (macOS)
+        if: runner.os == 'macOS'
         run: |
-          version="12"
-          libpath="/opt/homebrew/opt/gcc@$version/lib/gcc/$version"
+          version=${{ env.GCC_V }}
+          brew_prefix="$(brew --prefix)"
+          libpath="$brew_prefix/opt/gcc@$version/lib/gcc/$version"
+          mv $libpath/libgcc_s.1.1.dylib $libpath/libgcc_s.1.1.dylib.bak
           mv $libpath/libgfortran.5.dylib $libpath/libgfortran.5.dylib.bak 
           mv $libpath/libquadmath.0.dylib $libpath/libquadmath.0.dylib.bak
           mv $libpath/libstdc++.6.dylib $libpath/libstdc++.6.dylib.bak
@@ -95,7 +97,7 @@ jobs:
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           mkdir $ostag
-          python3 scripts/fetch_releases.py --manifest releases.json --ostag $ostag --outdir $ostag --zip $ostag.zip
+          pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --ostag $ostag --outdir $ostag --zip $ostag.zip
 
       - name: Build programs
         uses: nick-fields/retry@v3
@@ -104,9 +106,9 @@ jobs:
           timeout_minutes: 40
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
-            fetched=$(python3 scripts/fetch_releases.py --manifest releases.json --list)
+            fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
             pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --zip $ostag.zip --verbose
-            pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mflgr,mfnwt,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
       - name: Show programs
@@ -114,7 +116,7 @@ jobs:
           ostag="${{ steps.ostag.outputs.ostag }}"
           ls $ostag
 
-      - name: Check linked libs (ARM macOS)
+      - name: Check linked libs (macOS)
         if: runner.os == 'macOS'
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
