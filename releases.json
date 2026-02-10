@@ -1,16 +1,17 @@
 [
   {
     "repo": "MODFLOW-ORG/modflow6",
-    "tag": "6.6.3",
+    "tag": "6.7.0",
     "assets": {
-      "linux": "mf6.6.3_linux.zip",
-      "mac": "mf6.6.3_mac.zip",
-      "macarm": "mf6.6.3_macarm.zip",
-      "win64": "mf6.6.3_win64.zip"
+      "linux": "mf6.7.0_linux.zip",
+      "mac": "mf6.7.0_mac.zip",
+      "macarm": "mf6.7.0_macarm.zip",
+      "win64": "mf6.7.0_win64.zip"
     },
     "programs": {
       "mf6": "mf6",
       "zbud6": "zbud6",
+      "mf5to6": "mf5to6",
       "libmf6": "libmf6"
     }
   },
@@ -67,8 +68,8 @@
     }
   },
   {
-    "repo": "MODFLOW-ORG/mfusgt",
-    "tag": "v2.6.0",
+    "repo": "MODFLOW-ORG/mfnwt",
+    "tag": "v1.3.0",
     "assets": {
       "linux": "linux.zip",
       "mac": "mac.zip",
@@ -76,7 +77,74 @@
       "win64": "win64.zip"
     },
     "programs": {
-      "mfusg_gsi": "mfusgt"
+      "mfnwt": "mfnwt",
+      "mfnwtdbl": "mfnwtdbl"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/swtv4",
+    "tag": "v4.00.05",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "swtv4": "swtv4"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/modpath6",
+    "tag": "v6.0.1",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "mp6": "mp6"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/vs2dt",
+    "tag": "v3.3",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "vs2dt": "vs2dt"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/mflgr",
+    "tag": "v2.0.0",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "mflgr": "mflgr",
+      "mflgrdbl": "mflgrdbl"
+    }
+  },
+  {
+    "repo": "MODFLOW-ORG/mf2000",
+    "tag": "v1.19.01",
+    "assets": {
+      "linux": "linux.zip",
+      "mac": "mac.zip",
+      "macarm": "macarm.zip",
+      "win64": "win64.zip"
+    },
+    "programs": {
+      "mf2000": "mf2000"
     }
   }
 ]
