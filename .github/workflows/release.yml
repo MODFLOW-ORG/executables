@@ -8,7 +8,7 @@ on:
       - master
   workflow_dispatch:
 env:
-  DIST: dist
+  DIST: executables
   GCC_V: 12
   INTEL_V: 2021.7
 jobs:
@@ -125,7 +125,7 @@ jobs:
       - name: Upload distribution archive
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.DIST }}-${{ matrix.os }}
+          name: ${{ env.DIST }}-${{ steps.ostag.outputs.ostag }}
           path: ./*.zip
 
       - name: Upload distribution metadata
@@ -187,7 +187,7 @@ jobs:
           path: ${{ env.DIST }} 
 
       - name: List distribution files
-        run: ls -l ${{ steps.ostag.outputs.ostag }}
+        run: ls -l ${{ env.DIST }}
 
       - name: Create release body header
         shell: python
