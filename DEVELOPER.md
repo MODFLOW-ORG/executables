@@ -135,7 +135,7 @@ This hybrid system will be replaced by the [modflow-devtools programs API](https
 
 The `workflow_dispatch` event is GitHub's mechanism for manually triggering workflows. This can be accomplished from the Actions tab in the GitHub UI, or via the [GitHub CLI](https://cli.github.com/manual/gh_workflow_run).
 
-First, trigger the `integration.yml` workflow to build mf6 with pymake and run it against the mf6 autotest suite. If tests pass, trigger the `release.yml` workflow to make the release.
+Trigger the `release.yml` workflow to start the release.
 
 ### GitHub UI
 
