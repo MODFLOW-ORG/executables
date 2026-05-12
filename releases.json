@@ -68,8 +68,8 @@
     }
   },
   {
-    "repo": "MODFLOW-ORG/mfnwt",
-    "tag": "v1.3.0",
+    "repo": "MODFLOW-ORG/mfusgt",
+    "tag": "v2.6.0",
     "assets": {
       "linux": "linux.zip",
       "mac": "mac.zip",
@@ -77,74 +77,7 @@
       "win64": "win64.zip"
     },
     "programs": {
-      "mfnwt": "mfnwt",
-      "mfnwtdbl": "mfnwtdbl"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/swtv4",
-    "tag": "v4.00.05",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "swtv4": "swtv4"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/modpath6",
-    "tag": "v6.0.1",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "mp6": "mp6"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/vs2dt",
-    "tag": "v3.3",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "vs2dt": "vs2dt"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/mflgr",
-    "tag": "v2.0.0",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "mflgr": "mflgr",
-      "mflgrdbl": "mflgrdbl"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/mf2000",
-    "tag": "v1.19.01",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "mf2000": "mf2000"
+      "mfusg_gsi": "mfusgt"
     }
   }
 ]
