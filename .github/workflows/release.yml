@@ -107,7 +107,7 @@ jobs:
           command: |
             ostag="${{ steps.ostag.outputs.ostag }}"
             fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
-            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfusg --appdir $ostag --double --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
