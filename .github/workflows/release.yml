@@ -193,10 +193,9 @@ jobs:
         shell: python
         run: |
           import os
-          next_version = os.getenv('NEXT_VERSION') 
           line = "The programs, version numbers, and the date "
           line += "stamp on the downloaded file used to create the "
-          line += f"executables for version {next_version} are\n\n"
+          line += f"executables are\n\n"
           with open('Header.md', "w") as file:
               file.write(line)
 
