@@ -57,8 +57,9 @@ jobs:
           version=${{ env.GCC_V }}
           brew_prefix="$(brew --prefix)"
           libpath="$brew_prefix/opt/gcc@$version/lib/gcc/$version"
-          mv $libpath/libgcc_s.1.1.dylib $libpath/libgcc_s.1.1.dylib.bak
-          mv $libpath/libgfortran.5.dylib $libpath/libgfortran.5.dylib.bak 
+          # libgcc_s.1.1 has no static counterpart on Intel; only hide it on ARM
+          [[ "$(uname -m)" == "arm64" ]] && mv $libpath/libgcc_s.1.1.dylib $libpath/libgcc_s.1.1.dylib.bak
+          mv $libpath/libgfortran.5.dylib $libpath/libgfortran.5.dylib.bak
           mv $libpath/libquadmath.0.dylib $libpath/libquadmath.0.dylib.bak
           mv $libpath/libstdc++.6.dylib $libpath/libstdc++.6.dylib.bak
 
