@@ -46,7 +46,7 @@ jobs:
           xcode-version: 'latest'
 
       - name: Set LDFLAGS (macOS)
-        if: runner.os == 'macOS'
+        if: runner.os == 'macOS' && runner.arch == 'ARM64'
         run: |
           ldflags="$LDFLAGS -Wl,-ld_classic"
           echo "LDFLAGS=$ldflags" >> $GITHUB_ENV
@@ -111,6 +111,14 @@ jobs:
             pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfusg,mfnwt,mflgr --appdir $ostag --double --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
+
+      - name: Patch code.json with fetched program versions
+        run: |
+          ostag="${{ steps.ostag.outputs.ostag }}"
+          pixi run --manifest-path modflow6/pixi.toml python scripts/patch_code_json.py \
+            --manifest releases.json \
+            --ostag $ostag \
+            --zip $ostag.zip
 
       - name: Show programs
         run: |
