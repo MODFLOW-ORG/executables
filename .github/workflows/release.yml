@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-14, macos-15-intel, windows-2022]
+        os: [ubuntu-22.04, macos-14, windows-2022]
     defaults:
       run:
         shell: bash
@@ -46,7 +46,7 @@ jobs:
           xcode-version: 'latest'
 
       - name: Set LDFLAGS (macOS)
-        if: runner.os == 'macOS' && runner.arch == 'ARM64'
+        if: runner.os == 'macOS'
         run: |
           ldflags="$LDFLAGS -Wl,-ld_classic"
           echo "LDFLAGS=$ldflags" >> $GITHUB_ENV
@@ -57,8 +57,7 @@ jobs:
           version=${{ env.GCC_V }}
           brew_prefix="$(brew --prefix)"
           libpath="$brew_prefix/opt/gcc@$version/lib/gcc/$version"
-          # libgcc_s.1.1 has no static counterpart on Intel; only hide it on ARM
-          [[ "$(uname -m)" == "arm64" ]] && mv $libpath/libgcc_s.1.1.dylib $libpath/libgcc_s.1.1.dylib.bak
+          mv $libpath/libgcc_s.1.1.dylib $libpath/libgcc_s.1.1.dylib.bak
           mv $libpath/libgfortran.5.dylib $libpath/libgfortran.5.dylib.bak
           mv $libpath/libquadmath.0.dylib $libpath/libquadmath.0.dylib.bak
           mv $libpath/libstdc++.6.dylib $libpath/libstdc++.6.dylib.bak
