@@ -40,44 +40,5 @@
     "programs": {
       "gridgen": "gridgen"
     }
-  },
-  {
-    "repo": "MODFLOW-ORG/zonbud",
-    "tag": "v3.01",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "zonbud": "zonbud"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/zonbudusg",
-    "tag": "v1.01",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "zonbudusg": "zonbudusg"
-    }
-  },
-  {
-    "repo": "MODFLOW-ORG/mfusgt",
-    "tag": "v2.6.0",
-    "assets": {
-      "linux": "linux.zip",
-      "mac": "mac.zip",
-      "macarm": "macarm.zip",
-      "win64": "win64.zip"
-    },
-    "programs": {
-      "mfusg_gsi": "mfusgt"
-    }
   }
 ]
