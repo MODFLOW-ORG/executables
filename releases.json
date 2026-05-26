@@ -4,7 +4,6 @@
     "tag": "6.7.0",
     "assets": {
       "linux": "mf6.7.0_linux.zip",
-      "mac": "mf6.7.0_mac.zip",
       "macarm": "mf6.7.0_macarm.zip",
       "win64": "mf6.7.0_win64.zip"
     },
@@ -20,7 +19,6 @@
     "tag": "v1.6",
     "assets": {
       "linux": "linux.zip",
-      "mac": "mac.zip",
       "macarm": "macarm.zip",
       "win64": "win64.zip"
     },
@@ -33,7 +31,6 @@
     "tag": "v1.0.02",
     "assets": {
       "linux": "linux.zip",
-      "mac": "mac.zip",
       "macarm": "macarm.zip",
       "win64": "win64.zip"
     },
