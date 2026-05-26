@@ -24,7 +24,7 @@ The programs, version numbers, and the date stamp on the downloaded file used to
 | mt3dusgs | 1.1.0 | 12/08/2021 |
 | sutra | 4.0 | 12/19/2024 |
 | swtv4 | 4.00.05 | 10/24/2018 |
-| triangle | 1.6 | 01/30/2026 |
+| triangle | 1.6 | 05/26/2026 |
 | vs2dt | 3.3 | 04/02/2018 |
 | zbud6 | 6.6.3 | 10/02/2025 |
 | zonbud | 3.01 | 10/20/2025 |
