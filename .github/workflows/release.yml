@@ -83,6 +83,13 @@ jobs:
         working-directory: modflow6
         run: pixi run install
 
+      - name: Pin pymake (temporary)
+        run: |
+          # install pre-v2 pymake to avoid dynamic linking problem
+          pixi run --manifest-path modflow6/pixi.toml python -m pip install \
+            --force-reinstall --no-deps \
+            "pymake @ git+https://github.com/modflowpy/pymake.git@7c6dbc1"
+
       - name: Get OS tag
         id: ostag
         run: |
