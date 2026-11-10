@@ -120,6 +120,7 @@ jobs:
           pixi run --manifest-path modflow6/pixi.toml python scripts/patch_code_json.py \
             --manifest releases.json \
             --ostag $ostag \
+            --appdir $ostag \
             --zip $ostag.zip
 
       - name: Show programs
