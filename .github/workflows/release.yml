@@ -7,6 +7,9 @@ on:
     branches:
       - master
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 env:
   DIST: executables
   GCC_V: 12
@@ -18,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-14, windows-2022]
+        os: [ubuntu-22.04, macos-15, windows-2022]
     defaults:
       run:
         shell: bash

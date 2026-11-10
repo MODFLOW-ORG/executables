@@ -1,11 +1,11 @@
 [
   {
     "repo": "MODFLOW-ORG/modflow6",
-    "tag": "6.7.0",
+    "tag": "6.8.2",
     "assets": {
-      "linux": "mf6.7.0_linux.zip",
-      "macarm": "mf6.7.0_macarm.zip",
-      "win64": "mf6.7.0_win64.zip"
+      "linux": "mf6.8.2_linux.zip",
+      "macarm": "mf6.8.2_macarm.zip",
+      "win64": "mf6.8.2_win64.zip"
     },
     "programs": {
       "mf6": "mf6",
@@ -28,7 +28,7 @@
   },
   {
     "repo": "MODFLOW-ORG/gridgen",
-    "tag": "v1.0.02",
+    "tag": "v1.0.03",
     "assets": {
       "linux": "linux.zip",
       "macarm": "macarm.zip",
