@@ -91,8 +91,13 @@ The file `releases.json` in the repository root is a manifest listing programs t
 During a release build, the workflow:
 
 1. Runs `scripts/fetch_releases.py` to download pre-built binaries for the current platform from each repository listed in `releases.json`.
-2. Runs pymake to compile the remaining programs, excluding those already fetched.
-3. Combines everything into the platform zip alongside pymake-generated metadata.
+2. Runs pymake to compile the remaining programs, excluding those already fetched, and adds them to the platform zip.
+3. Runs pymake's `make-code-json` to generate `code.json` and `code.md` metadata. These come from pymake's internal program catalog, which may list different versions than were actually fetched.
+4. Runs `scripts/patch_code_json.py` to correct the version, URL, and date in `code.json` for each program in `releases.json`, regenerate `code.md` from the corrected `code.json`, and add `code.json` to the platform zip.
+
+`make-code-json` is deliberately run without `--zip`, so the patch script is the only thing that writes `code.json` into the zip. If the zip already contains a `code.json`, the patch script fails rather than adding a second, conflicting entry. The `code.json` that `make-code-json` also writes into the program directory is not corrected, but that directory is not distributed, only the zip is.
+
+The top-level `code.json` and `code.md` are uploaded with the build artifacts. The release job uses `code.md` for the release notes and for the program table in `README.md`.
 
 The fetch script handles platform-specific file extensions (`.exe`, `.dll`, `.dylib`, `.so`) and supports renaming programs when the archive filename differs from the distribution name (e.g., `mfusgt` in the archive becomes `mfusg_gsi` in the distribution).
 
