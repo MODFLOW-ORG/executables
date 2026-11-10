@@ -112,9 +112,9 @@ jobs:
             fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
             pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfusg,mfnwt,mflgr --appdir $ostag --double --keep --zip $ostag.zip --verbose
-            pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
+            pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --verbose
 
-      - name: Patch code.json with fetched program versions
+      - name: Patch code.json and code.md with fetched program versions, add code.json to zip
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           pixi run --manifest-path modflow6/pixi.toml python scripts/patch_code_json.py \
