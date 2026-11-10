@@ -114,7 +114,7 @@ jobs:
             pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfusg,mfnwt,mflgr --appdir $ostag --double --keep --zip $ostag.zip --verbose
             pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --zip $ostag.zip --verbose
 
-      - name: Patch code.json with fetched program versions
+      - name: Patch code.json and code.md with fetched program versions
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           pixi run --manifest-path modflow6/pixi.toml python scripts/patch_code_json.py \
