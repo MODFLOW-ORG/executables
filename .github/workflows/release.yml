@@ -108,6 +108,7 @@ jobs:
           shell: bash
           timeout_minutes: 40
           command: |
+            set -euo pipefail
             ostag="${{ steps.ostag.outputs.ostag }}"
             fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
             pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
