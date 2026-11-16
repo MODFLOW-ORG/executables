@@ -18,10 +18,10 @@ The programs, version numbers, and the date stamp on the downloaded file used to
 | mfnwt | 1.3.0 | 09/07/2022 |
 | mfusg | 1.5.2 | 11/10/2026 |
 | mfusgt | 2.8.1 | 11/01/2026 |
-| mp6 | 6.0.1 | 10/23/2026 |
-| mp7 | 7.2.001 | 12/22/2017 |
+| mp6 | 6.0.1 | 11/16/2026 |
+| mp7 | 7.2.001 | 11/16/2026 |
 | mt3dms | 5.3.0 | 07/05/2023 |
-| mt3dusgs | 1.1.1 | 02/11/2026 |
+| mt3dusgs | 1.1.1 | 11/16/2026 |
 | sutra | 4.0 | 12/19/2024 |
 | swtv4 | 4.00.05 | 10/24/2018 |
 | triangle | 1.6 | 05/26/2026 |
