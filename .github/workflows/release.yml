@@ -108,6 +108,7 @@ jobs:
           shell: bash
           timeout_minutes: 40
           command: |
+            set -euo pipefail
             ostag="${{ steps.ostag.outputs.ostag }}"
             fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
             pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
@@ -165,11 +166,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install https://github.com/modflowpy/pymake/zipball/master
 
       - name: Get last release tag
         id: last-tag
