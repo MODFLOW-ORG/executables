@@ -32,11 +32,10 @@ def _get_url_date(url):
     try:
         req = urllib.request.Request(url, method="HEAD")
         with urllib.request.urlopen(req, timeout=10) as resp:
-            for key in ("Last-Modified", "Date"):
-                val = resp.headers.get(key)
-                if val:
-                    dt = datetime.datetime.strptime(val, "%a, %d %b %Y %H:%M:%S %Z")
-                    return dt.strftime("%m/%d/%Y")
+            val = resp.headers.get("Last-Modified")
+            if val:
+                dt = datetime.datetime.strptime(val, "%a, %d %b %Y %H:%M:%S %Z")
+                return dt.strftime("%m/%d/%Y")
     except Exception:
         pass
     return None
@@ -88,23 +87,19 @@ def patch(
             if prog_name not in code:
                 continue
             prev_version = code[prog_name].get("version")
-            if prev_version == version:
-                continue
             code[prog_name]["version"] = version
             if url:
                 code[prog_name]["url"] = url
                 date = _get_url_date(url)
                 if date:
                     code[prog_name]["url_download_asset_date"] = date
-            changed.append(f"  {prog_name}: {prev_version!r} -> {version!r}")
+            if prev_version != version:
+                changed.append(f"  {prog_name}: {prev_version!r} -> {version!r}")
 
-    if changed:
-        for line in changed:
-            print(line)
-        code_json_path.write_text(json.dumps(code, indent=4) + "\n")
-        print(f"wrote {code_json_path}")
-    else:
-        print("code.json already up to date")
+    for line in changed:
+        print(line)
+    code_json_path.write_text(json.dumps(code, indent=4) + "\n")
+    print(f"wrote {code_json_path}")
 
     if code_md_path:
         write_code_md(code, code_md_path)
