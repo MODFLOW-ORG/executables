@@ -53,17 +53,14 @@ These programs are downloaded as pre-built binaries via `releases.json`. Their r
 
 | Program(s) | Repository | Release tag |
 |------------|-----------|-------------|
-| mf6, zbud6, mf5to6, libmf6 | [MODFLOW-ORG/modflow6](https://github.com/MODFLOW-ORG/modflow6) | 6.7.0 |
+| mf6, zbud6, mf5to6, libmf6 | [MODFLOW-ORG/modflow6](https://github.com/MODFLOW-ORG/modflow6) | 6.8.2 |
 | triangle | [MODFLOW-ORG/triangle](https://github.com/MODFLOW-ORG/triangle) | v1.6 |
-| gridgen | [MODFLOW-ORG/gridgen](https://github.com/MODFLOW-ORG/gridgen) | v1.0.02 |
+| gridgen | [MODFLOW-ORG/gridgen](https://github.com/MODFLOW-ORG/gridgen) | v1.1.00 |
+| mfusg, mfusgdbl | [MODFLOW-ORG/mfusg](https://github.com/MODFLOW-ORG/mfusg) | v1.5.2 |
+| mfusgt | [MODFLOW-ORG/mfusgt](https://github.com/MODFLOW-ORG/mfusgt) | v2.8.1 |
+| mt3dusgs | [MODFLOW-ORG/mt3d-usgs](https://github.com/MODFLOW-ORG/mt3d-usgs) | v1.1.1 |
 | zonbud | [MODFLOW-ORG/zonbud](https://github.com/MODFLOW-ORG/zonbud) | v3.01 |
 | zonbudusg | [MODFLOW-ORG/zonbudusg](https://github.com/MODFLOW-ORG/zonbudusg) | v1.01 |
-| mfnwt, mfnwtdbl | [MODFLOW-ORG/mfnwt](https://github.com/MODFLOW-ORG/mfnwt) | v1.3.0 |
-| swtv4 | [MODFLOW-ORG/swtv4](https://github.com/MODFLOW-ORG/swtv4) | v4.00.05 |
-| mp6 | [MODFLOW-ORG/modpath6](https://github.com/MODFLOW-ORG/modpath6) | v6.0.1 |
-| vs2dt | [MODFLOW-ORG/vs2dt](https://github.com/MODFLOW-ORG/vs2dt) | v3.3 |
-| mflgr, mflgrdbl | [MODFLOW-ORG/mflgr](https://github.com/MODFLOW-ORG/mflgr) | v2.0.0 |
-| mf2000 | [MODFLOW-ORG/mf2000](https://github.com/MODFLOW-ORG/mf2000) | v1.19.01 |
 
 ### Built from source by pymake
 
@@ -71,12 +68,15 @@ These programs are compiled by pymake.
 
 | Program(s) | Source |
 |------------|--------|
+| mf2000 | [MODFLOW-ORG/mf2000](https://github.com/MODFLOW-ORG/mf2000) |
 | mf2005, mf2005dbl | [MODFLOW-ORG/mf2005](https://github.com/MODFLOW-ORG/mf2005) |
-| mfusg, mfusgdbl | [MODFLOW-ORG/mfusg](https://github.com/MODFLOW-ORG/mfusg) |
-| mfusg_gsi | [MODFLOW-ORG/mfusgt](https://github.com/MODFLOW-ORG/mfusgt) |
+| mflgr, mflgrdbl | [MODFLOW-ORG/mflgr](https://github.com/MODFLOW-ORG/mflgr) |
+| mfnwt, mfnwtdbl | [MODFLOW-ORG/mfnwt](https://github.com/MODFLOW-ORG/mfnwt) |
+| swtv4 | [MODFLOW-ORG/swtv4](https://github.com/MODFLOW-ORG/swtv4) |
 | mt3dms | [MODFLOW-ORG/mt3dms](https://github.com/MODFLOW-ORG/mt3dms) |
-| mt3dusgs | [MODFLOW-ORG/mt3d-usgs](https://github.com/MODFLOW-ORG/mt3d-usgs) |
+| mp6 | [MODFLOW-ORG/modpath6](https://github.com/MODFLOW-ORG/modpath6) |
 | mp7 | [USGS](https://water.usgs.gov/water-resources/software/MODPATH/) |
+| vs2dt | [MODFLOW-ORG/vs2dt](https://github.com/MODFLOW-ORG/vs2dt) |
 | crt | [USGS](https://water.usgs.gov/ogw/CRT/) |
 | sutra | [USGS](https://water.usgs.gov/water-resources/software/sutra/) |
 
@@ -99,7 +99,7 @@ During a release build, the workflow:
 
 The top-level `code.json` and `code.md` are uploaded with the build artifacts. The release job uses `code.md` for the release notes and for the program table in `README.md`.
 
-The fetch script handles platform-specific file extensions (`.exe`, `.dll`, `.dylib`, `.so`) and supports renaming programs when the archive filename differs from the distribution name (e.g., `mfusgt` in the archive becomes `mfusg_gsi` in the distribution).
+The fetch script handles platform-specific file extensions (`.exe`, `.dll`, `.dylib`, `.so`) and supports renaming programs when the archive filename differs from the distribution name.
 
 ### Adding a program
 
