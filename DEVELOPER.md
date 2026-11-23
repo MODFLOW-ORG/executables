@@ -45,40 +45,12 @@ If the triggering event is `workflow_dispatch`:
 
 ## Program sources
 
-The distribution includes programs from across the MODFLOW ecosystem. Each program's source code and/or pre-built binaries come from one of three places: a MODFLOW-ORG GitHub repository with platform binaries, a MODFLOW-ORG repository with source-only releases, or a USGS server. This table tracks the current state as of January 2026.
+The distribution includes programs from across the MODFLOW ecosystem. Each program is either fetched as a pre-built binary or compiled from source:
 
-### Fetched from pre-built GitHub releases
+- **Fetched from GitHub releases**: programs listed in [`releases.json`](releases.json) are downloaded from platform-specific archives (e.g. linux.zip, macarm.zip, win64.zip) published as release assets by their repositories. The manifest records each program's repository and release tag.
+- **Built from source by pymake**: all other programs are compiled by pymake, which downloads their source from the locations in its program catalog.
 
-These programs are downloaded as pre-built binaries via `releases.json`. Their repositories publish platform-specific archives (linux.zip, mac.zip, macarm.zip, win64.zip) as release assets.
-
-| Program(s) | Repository | Release tag |
-|------------|-----------|-------------|
-| mf6, zbud6, mf5to6, libmf6 | [MODFLOW-ORG/modflow6](https://github.com/MODFLOW-ORG/modflow6) | 6.8.2 |
-| triangle | [MODFLOW-ORG/triangle](https://github.com/MODFLOW-ORG/triangle) | v1.6 |
-| gridgen | [MODFLOW-ORG/gridgen](https://github.com/MODFLOW-ORG/gridgen) | v1.1.00 |
-| mfusg, mfusgdbl | [MODFLOW-ORG/mfusg](https://github.com/MODFLOW-ORG/mfusg) | v1.5.2 |
-| mfusgt | [MODFLOW-ORG/mfusgt](https://github.com/MODFLOW-ORG/mfusgt) | v2.8.1 |
-| mt3dusgs | [MODFLOW-ORG/mt3d-usgs](https://github.com/MODFLOW-ORG/mt3d-usgs) | v1.1.1 |
-| zonbud | [MODFLOW-ORG/zonbud](https://github.com/MODFLOW-ORG/zonbud) | v3.01 |
-| zonbudusg | [MODFLOW-ORG/zonbudusg](https://github.com/MODFLOW-ORG/zonbudusg) | v1.01 |
-
-### Built from source by pymake
-
-These programs are compiled by pymake.
-
-| Program(s) | Source |
-|------------|--------|
-| mf2000 | [MODFLOW-ORG/mf2000](https://github.com/MODFLOW-ORG/mf2000) |
-| mf2005, mf2005dbl | [MODFLOW-ORG/mf2005](https://github.com/MODFLOW-ORG/mf2005) |
-| mflgr, mflgrdbl | [MODFLOW-ORG/mflgr](https://github.com/MODFLOW-ORG/mflgr) |
-| mfnwt, mfnwtdbl | [MODFLOW-ORG/mfnwt](https://github.com/MODFLOW-ORG/mfnwt) |
-| swtv4 | [MODFLOW-ORG/swtv4](https://github.com/MODFLOW-ORG/swtv4) |
-| mt3dms | [MODFLOW-ORG/mt3dms](https://github.com/MODFLOW-ORG/mt3dms) |
-| mp6 | [MODFLOW-ORG/modpath6](https://github.com/MODFLOW-ORG/modpath6) |
-| mp7 | [USGS](https://water.usgs.gov/water-resources/software/MODPATH/) |
-| vs2dt | [MODFLOW-ORG/vs2dt](https://github.com/MODFLOW-ORG/vs2dt) |
-| crt | [USGS](https://water.usgs.gov/ogw/CRT/) |
-| sutra | [USGS](https://water.usgs.gov/water-resources/software/sutra/) |
+See the table in the [README](README.md) for the full list of programs and versions in the latest release. It is generated from `code.json` at release time.
 
 To move a program from "built by pymake" to "fetched from releases", its repository needs to start publishing platform-specific binary archives as GitHub release assets, then an entry can be added to `releases.json` (see [Adding a program](#adding-a-program)).
 
