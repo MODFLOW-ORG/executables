@@ -30,12 +30,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
-      - name: Checkout modflow6
-        uses: actions/checkout@v5
-        with:
-          repository: MODFLOW-ORG/modflow6
-          path: modflow6
-
       - name: Setup ${{ contains(fromJSON('["macOS"]'), runner.os) && 'gcc' || 'intel-classic' }} ${{ contains(fromJSON('["macOS"]'), runner.os) && env.GCC_V || env.INTEL_V }}
         uses: fortran-lang/setup-fortran@v1
         with:
@@ -76,20 +70,18 @@ jobs:
           echo "${{ github.repository }} version ${{ steps.tag.outputs.tag }}"
           echo "RELEASE_VERSION=${{ steps.tag.outputs.tag }}" >> $GITHUB_ENV
 
-      - name: Setup pixi
-        uses: prefix-dev/setup-pixi@v0.9.1
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          pixi-version: v0.82.1
-          manifest-path: modflow6/pixi.toml
+          python-version: "3.13"
 
-      - name: Custom pixi install
-        working-directory: modflow6
-        run: pixi run install
+      - name: Install pymake and modflow-devtools
+        run: pip install --disable-pip-version-check git+https://github.com/modflowpy/pymake.git modflow-devtools
 
       - name: Get OS tag
         id: ostag
         run: |
-          ostag=$(pixi run --manifest-path modflow6/pixi.toml python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
+          ostag=$(python -c "from modflow_devtools.ostags import get_ostag; print(get_ostag())")
           echo "ostag=$ostag" >> $GITHUB_OUTPUT
 
       # interactive debugging
@@ -100,7 +92,7 @@ jobs:
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
           mkdir $ostag
-          pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --ostag $ostag --outdir $ostag --zip $ostag.zip
+          python scripts/fetch_releases.py --manifest releases.json --ostag $ostag --outdir $ostag --zip $ostag.zip
 
       - name: Build programs
         uses: nick-fields/retry@v3
@@ -110,15 +102,15 @@ jobs:
           command: |
             set -euo pipefail
             ostag="${{ steps.ostag.outputs.ostag }}"
-            fetched=$(pixi run --manifest-path modflow6/pixi.toml python scripts/fetch_releases.py --manifest releases.json --list)
-            pixi run --manifest-path modflow6/pixi.toml make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
-            pixi run --manifest-path modflow6/pixi.toml make-program mf2005,mfnwt,mflgr --appdir $ostag --double --keep --zip $ostag.zip --verbose
-            pixi run --manifest-path modflow6/pixi.toml make-code-json --appdir $ostag --verbose
+            fetched=$(python scripts/fetch_releases.py --manifest releases.json --list)
+            make-program : --appdir $ostag --exclude "$fetched" --keep --zip $ostag.zip --verbose
+            make-program mf2005,mfnwt,mflgr --appdir $ostag --double --keep --zip $ostag.zip --verbose
+            make-code-json --appdir $ostag --verbose
 
       - name: Patch code.json and code.md with fetched program versions, add code.json to zip
         run: |
           ostag="${{ steps.ostag.outputs.ostag }}"
-          pixi run --manifest-path modflow6/pixi.toml python scripts/patch_code_json.py \
+          python scripts/patch_code_json.py \
             --manifest releases.json \
             --ostag $ostag \
             --zip $ostag.zip
