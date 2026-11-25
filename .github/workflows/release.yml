@@ -42,11 +42,6 @@ jobs:
           compiler: ${{ contains(fromJSON('["macOS"]'), runner.os) && 'gcc' || 'intel-classic' }}
           version: ${{ contains(fromJSON('["macOS"]'), runner.os) && env.GCC_V || env.INTEL_V }}
 
-      # icc 2021.7 can't find the multiarch glibc headers on current ubuntu runner images
-      - name: Set CPATH (Linux)
-        if: runner.os == 'Linux'
-        run: echo "CPATH=/usr/include/x86_64-linux-gnu${CPATH:+:$CPATH}" >> $GITHUB_ENV
-
       - name: Setup Xcode CLT (macOS)
         uses: maxim-lobanov/setup-xcode@v1
         if: runner.os == 'macOS'
